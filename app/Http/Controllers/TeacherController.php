@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Teacher;
+use App\Models\User;
 
 
 class TeacherController extends Controller
@@ -45,13 +46,24 @@ class TeacherController extends Controller
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
-            'subject_id' => 'required'
+            'subject_id' => 'required',
+            'login' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
 
-        Teacher::create([ 
+        $teacher = Teacher::create([ 
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
             'subject_id'=>$request->subject_id
+        ]);
+
+        User::create([ 
+            'role_id' =>2,
+            'teacher_id'=> $teacher->id,
+            'login'=>$request->login,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password)
         ]);
 
         return redirect('admin/teachers');

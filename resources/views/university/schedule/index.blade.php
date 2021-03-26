@@ -4,7 +4,8 @@
 
 
     <div class="mb-3" style="margin: 5px;">
-        <a href="/scheduleCreate" class="btn btn-primary active float-right" role="button" aria-pressed="true">Add Schedule</a>
+        <a href="/scheduleCreate" class="btn btn-primary active float-left" role="button" aria-pressed="true">Add Schedule</a>
+        <a href="/home" class="btn btn-primary active float-right" role="button" aria-pressed="true">home</a>   
     </div>
     <table class="table table-striped">
         <thead>
@@ -31,11 +32,6 @@
                 <td> <a href="#">{{$schedule->group['name']}} </a></td>
                 <td> {{$schedule->room['name']}} </td>
                 <td> {{$schedule->teacher['first_name']}}  {{$schedule->teacher['last_name']}} </a></td>
-
-
-
-
-
             </tbody>
             @endforeach
         @endif

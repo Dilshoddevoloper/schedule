@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -27,14 +28,28 @@ class StudentController extends Controller
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
-            'group_id' => 'required'
+            'group_id' => 'required',
+            'login' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+
         ]);
 
-        Student::create([ 
+        $student = Student::create([ 
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
             'group_id'=>$request->group_id
         ]);
+
+        User::create([ 
+            'role_id' =>3,
+            'student_id'=> $student->id,
+            'login'=>$request->login,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password)
+        ]);
+
+
 
         return redirect('admin/students');
     }

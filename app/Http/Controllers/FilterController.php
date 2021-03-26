@@ -14,6 +14,7 @@ class FilterController extends Controller
 {
     public function index(Request $request) {
         $week_of_day =WeekDay::where('week_day', date("D"))->first(); 
+        // dd(date("D"));
         $date= Carbon::now('GMT+5')->format('H:i:s');
         $para_id = Para::whereTime('time_from', '<=', $date)
         ->whereTime('to_time', '>=', $date)->first();

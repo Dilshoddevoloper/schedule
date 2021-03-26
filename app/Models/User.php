@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Itstructure\LaRbac\Interfaces\RbacUserInterface as RbacUserInterface;
 use Illuminate\Notifications\Notifiable;
+use Itstructure\LaRbac\Traits\Administrable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements RbacUserInterface
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Administrable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,11 +19,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstName',
-        'lastName',
         'login',
         'email',
         'password',
+        'role_id',
+        'student_id',
+        'teacher_id',
     ];
 
     /**
@@ -38,5 +41,7 @@ class User extends Authenticatable
      * The attributes that should be cast to native types.
      *
      */
-    
+    public function role() {
+        return $this->belongsTo(Role::class); 
+    }
 }

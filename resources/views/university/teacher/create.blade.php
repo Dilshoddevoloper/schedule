@@ -7,7 +7,7 @@
 
     <form  method="POST" action="/admin/createTeacher"> 
         {{ csrf_field() }}
-
+        <h3>Personal Data</h3>
         <div class="form-group">
             <label for="first_name">First Name</label>
             <input type="text" class="form-control" id="first_name" name="first_name">
@@ -30,6 +30,22 @@
                     </select>
                 </div>
             </div>
+        </div>
+
+        <h3>User data</h3>
+        <div class="form-group">
+            <label for="login" class="form-label">Login</label>
+            <input type="text" class="form-control" id="login" name="login">
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label">password</label>
+            <input type="password" class="form-control" id="password" name="password">
         </div>
         
 

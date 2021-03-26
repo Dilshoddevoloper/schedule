@@ -13,8 +13,10 @@ class GroupController extends Controller
      //  @return \Illuminate\Http\Response
     public function index()
     {
-        $groups=DB::table('groups')
-            ->get();
+      
+      $groups=Group::with('student')->get();
+      // dd($groups);
+      
         return view('university.group.index')->with('groups',$groups);
     }
 

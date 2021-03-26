@@ -19,6 +19,8 @@
             <tbody>
                 <th scope="row">{{$group->id}}</th>
                 <td> <a href="#">{{$group->name}} </a></td>
+                <td scope="row">{{count($group->student)}}</td>
+
             </tbody>
             @endforeach
         @endif

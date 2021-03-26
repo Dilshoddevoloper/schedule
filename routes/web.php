@@ -49,6 +49,9 @@ Route::post('/scheduleCreate',[App\Http\Controllers\SchudeleController::class, '
 
 Route::post('dynamic_dependent/fetch', [App\Http\Controllers\SchudeleController::class, 'fetch'])->name('dynamicdependent.fetch');
 
+Route::get('/student-schedule',[App\Http\Controllers\StudentScheduleController::class, 'index'] );
+Route::get('/switch',[App\Http\Controllers\SwitchController::class, 'index'] );
+
 
 
 
