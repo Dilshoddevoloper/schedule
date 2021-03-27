@@ -12,13 +12,9 @@ class StudentScheduleController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        $paras = Para::all();
         $groupId = Student::where('id',$user->student_id)->first()->group_id;
         $schedules=Schedule::where('group_id',$groupId)
         ->with('weekDay', 'para', 'subject', 'group', 'room', 'teacher')->get();
-        // dd($schedules);
-        weekDays= WeekDay::all()->name;
-        foreach(weekday)
-        return view('university.studentSchedule.index',['schedules' => $schedules, 'paras' => $paras]);
+        return view('university.studentSchedule.index',['schedules' => $schedules]);
     }
 }

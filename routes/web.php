@@ -18,7 +18,7 @@ Route::get('/',[App\Http\Controllers\FilterController::class, 'index'] )->name('
 //     return view('welcome');
 // });
 
-Route::get('/adminhome', function () {
+Route::get('/admin/dashboard', function () {
     return view('admin.index');
 });
 
@@ -53,6 +53,7 @@ Route::get('/student-schedule',[App\Http\Controllers\StudentScheduleController::
 Route::get('/switch',[App\Http\Controllers\SwitchController::class, 'index'] );
 Route::get('/teacher-schedule',[App\Http\Controllers\SchudeleController::class, 'teacherSchedule'] );
 
+Route::get('/schedule/groups/{group}',[App\Http\Controllers\GroupController::class, 'show'] );
 
 
 

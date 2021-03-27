@@ -1,5 +1,3 @@
-
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 
@@ -10,27 +8,29 @@
     <thead>
     <tr>
         <th scope="col"> #</th>
-        <th scope="col"> time </th>
-        <th scope="col"> Monday </th>
-        <th scope="col"> Tuesday </th>
-        <th scope="col"> Wednesday </th>
-        <th scope="col"> Thursday </th>
-        <th scope="col"> Friday </th>
-        <th scope="col"> Saturday </th>
+        <th scope="col"> Week Day </th>
+        <th scope="col"> Para to </th>
+        <th scope="col"> Para from </th>
+        <th scope="col"> Subject </th>
+        <th scope="col"> Group </th>
+        <th scope="col"> Room </th>
+        <th scope="col"> Teacher </th>
     </tr>
     </thead>
 
-    @if(count($paras))
-    <tbody>
-        
-    @foreach($paras as $key => $para)
-    <tr>
-        <th scope="row">{{$key+1}} </th>
-        <th scope="row"> {{$para->time_from}} - {{$para->to_time}}</th>
-    </tr>
-            
-        @endforeach
+    @if(count($schedules))
+        @foreach($schedules as $key => $schedule)
+        <tbody>
+            <th scope="row">{{$key+1}}</th>
+            <td> {{$schedule->weekDay['week_day']}} </td>
+            <td> {{$schedule->para['time_from']}} </td>
+            <td> {{$schedule->para['to_time']}} </td>
+            <td> {{$schedule->subject['name']}} </td>
+            <td> <a href="#">{{$schedule->group['name']}} </a></td>
+            <td> {{$schedule->room['name']}} </td>
+            <td> {{$schedule->teacher['first_name']}}  {{$schedule->teacher['last_name']}} </a></td>
         </tbody>
+        @endforeach
     @endif
 </table>
 

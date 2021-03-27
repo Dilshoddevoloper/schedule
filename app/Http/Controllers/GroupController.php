@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use DB;
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class GroupController extends Controller
 {
@@ -50,10 +51,17 @@ class GroupController extends Controller
       //
       // @param  \App\Models\Group  $group
       // @return \Illuminate\Http\Response
-    public function show(Group $group)
-    {
-        //
-    }
+      public function show(Group $group)
+      {
+          // dd($group);
+          // $group=Group::where('id', $this->id)->first();
+          // dd($group);
+          // $students=Student::with('group')->get();
+          $students = Student::where('group_id', $group->id)->get();
+          // dd($students);        
+          return view('university.group.show')->with('students',$students);
+      }
+    
 
       // Show the form for editing the specified resource.
       //

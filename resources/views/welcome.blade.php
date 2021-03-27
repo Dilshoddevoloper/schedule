@@ -31,7 +31,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                        <a href="{{ url('/schedule') }}" class="text-sm text-gray-700 underline">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
@@ -48,21 +48,14 @@
             
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="teacherName">O`qituvchi bo`yicha qidirish</span>
+                            <span class="input-group-text" id="teacherName">Search by teacher</span>
                         </div>
                         <input type="text" name="teacherName" class="form-control" aria-label="Default" aria-describedby="teacherName">
                     </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">O`quvchi bo`yicha qidirish</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </form>
-            <h3 align="center"> Ayni vaqtdagi dars jadvali</h3>
+            <h3 align="center"> Current lesson schudele</h3>
             <table class="table table-striped">
         <thead>
         <tr>
@@ -84,7 +77,7 @@
                 <td> {{$schedule->para['time_from']}} </td>
                 <td> {{$schedule->para['to_time']}} </td>
                 <td> {{$schedule->subject['name']}} </td>
-                <td> <a href="#">{{$schedule->group['name']}} </a></td>
+                <td> <a href="/schedule/groups/{group}">{{$schedule->group['name']}} </a></td>
                 <td> {{$schedule->room['name']}} </td>
                 <td> {{$schedule->teacher['first_name']}}  {{$schedule->teacher['last_name']}} </a></td>
             </tbody>
