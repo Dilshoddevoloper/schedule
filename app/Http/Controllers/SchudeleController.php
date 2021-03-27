@@ -71,5 +71,16 @@ class SchudeleController extends Controller
         }
         echo $output;
     }
+
+    public function teacherSchedule() {
+            $user = auth()->user();
+            $schedules=Schedule::where('teacher_id',$user->teacher_id)
+            ->with('weekDay', 'para', 'subject', 'group', 'room', 'teacher')->get();
+           
+            // dd($user->teacher_id);
+                // dd($schedules);
+            return view('university.studentSchedule.index')->with('schedules',$schedules);
+
+    }
     
 }
