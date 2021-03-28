@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[App\Http\Controllers\FilterController::class, 'index'] )->name('welcome.blade');
 
 // Route::get('/', function () {
-//     return view('welcome');
-// });
-
+    //     return view('welcome');
+    // });
+    
+    Auth::routes();
 Route::get('/admin/dashboard', function () {
     return view('admin.index');
 });
@@ -55,6 +56,17 @@ Route::get('/teacher-schedule',[App\Http\Controllers\SchudeleController::class, 
 
 Route::get('/schedule/groups/{group}',[App\Http\Controllers\GroupController::class, 'show'] );
 
+Route::get('subject/{id}/edit',[App\Http\Controllers\SubjectController::class, 'edit']);
+Route::put('subject/{id}/update', [App\Http\Controllers\SubjectController::class, 'update'])->name('subject.update');
+Route::delete('subject/{id}', [App\Http\Controllers\SubjectController::class, 'destroy'])->name('subject.destroy');
+
+Route::get('student/{id}/edit',[App\Http\Controllers\StudentController::class, 'edit']);
+Route::put('student/{id}/update', [App\Http\Controllers\StudentController::class, 'update'])->name('student.update');
+Route::delete('student/{id}', [App\Http\Controllers\StudentController::class, 'destroy'])->name('student.destroy');
+
+Route::get('teacher/{id}/edit',[App\Http\Controllers\TeacherController::class, 'edit']);
+Route::put('teacher/{id}/update', [App\Http\Controllers\TeacherController::class, 'update'])->name('teacher.update');
+Route::delete('teacher/{id}', [App\Http\Controllers\TeacherController::class, 'destroy'])->name('teacher.destroy');
 
 
 
@@ -63,7 +75,6 @@ Route::get('/schedule/groups/{group}',[App\Http\Controllers\GroupController::cla
 
 
 
-Auth::routes();
 
 Route::get('/home', function() {
     return view('home');

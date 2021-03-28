@@ -18,6 +18,7 @@ class SwitchController extends Controller
 
         switch($user->role_id) 
         {
+            // dd();
             case 1: return redirect('/admin/dashboard'); break; 
             case 2: return redirect('/teacher-schedule'); break; 
             case 3: return redirect('/student-schedule'); break; 

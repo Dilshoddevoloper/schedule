@@ -15,12 +15,12 @@
         </thead>
 
         @if(count($students))
-            @foreach($students as $student)
+            @foreach($students as $key => $student)
             <?php
                 $studentGroup = \App\Models\Group::where('id',$student->group_id)->first();
             ?>
             <tbody>
-                <th scope="row">{{$student ->id}}</th>
+                <th scope="row">{{$key+1}}</th>
                 <td>{{$student->first_name}}</td>
                 <td>{{$student->last_name}}</td>
                 <td>{{$studentGroup->name}}</td>

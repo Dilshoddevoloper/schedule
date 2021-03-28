@@ -49,8 +49,6 @@ class StudentController extends Controller
             'password'=>bcrypt($request->password)
         ]);
 
-
-
         return redirect('admin/students');
     }
 
@@ -61,15 +59,29 @@ class StudentController extends Controller
     }
 
    
-    public function edit(Student $student)
+    public function edit($id)
     {
-        //
+        $student = Student::where('id',$id)->first();
+        $group_list=DB::table('groups')->get();
+        return view('university.student.edit',['student' => $student, 'group_list' => $group_list]);  
     }
 
     
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($id);
+        $this->validate($request,[
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'group_id' => 'required'
+
+        ]);
+
+
+         $data =$request->all();
+        $student=Student::find($id);
+        $student -> update($data);        
+        return redirect('admin/students');
     }
 
     /**
@@ -78,8 +90,11 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        $student=Student::find($id);
+        $student->delete();
+
+        return redirect('admin/students');
     }
 }

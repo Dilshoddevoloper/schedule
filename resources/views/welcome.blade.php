@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <script src="https://unpkg.com/vue@next"></script>
         <!-- Styles -->
         <style>
@@ -22,73 +22,161 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
 
     </head>
     <body class="antialiased">
 
-        <div class="input-group mb-3">
+        <div class="input-group mt-5 mb-3">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/schedule') }}" class="text-sm text-gray-700 underline">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-
                     @endauth
                 </div>
             @endif
             
         </div>
-        <br>
-        <br>
-        <div>
+        <div class="container mt-5">
             <form method="GET" action="{{ route('welcome.blade')}}">
                     {{ csrf_field() }}
             
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="teacherName">Search by teacher</span>
+                            <span class="input-group-text" id="teacherName">Search by Teacher</span>
                         </div>
                         <input type="text" name="teacherName" class="form-control" aria-label="Default" aria-describedby="teacherName">
                     </div>
 
+                    <!-- <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="teacherName">Search by Student</span>
+                        </div>
+                        <input type="text" name="teacherName" class="form-control" aria-label="Default" aria-describedby="teacherName">
+                    </div>
+                    -->
                     <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            <h3 align="center"> Current lesson schudele</h3>
+            </form>
+
+            <h3 align="center"> Current lesson schedule</h3> 
             <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col"> #</th>
-            <th scope="col"> Week Day </th>
-            <th scope="col"> Para to </th>
-            <th scope="col"> Para from </th>
-            <th scope="col"> Subject </th>
-            <th scope="col"> Group </th>
-            <th scope="col"> Room </th>
-            <th scope="col"> Teacher </th>
-        </tr>
-        </thead>
+                <tr class="bg-primary">
+                    <th scope="col"> #</th>
+                    <th scope="col"> Week Day </th>
+                    <th scope="col"> Para to </th>
+                    <th scope="col"> Para from </th>
+                    <th scope="col"> Subject </th>
+                    <th scope="col"> Group </th>
+                    <th scope="col"> Room </th>
+                    <th scope="col"> Teacher </th>
+                </tr>
+                <tr>
+                  <form method="GET" action="{{ route('welcome.blade')}}">
+                    @csrf
+                    <td>
+                        <!-- <input type="text" name="name" class="form-control" id="name" placeholder="Week day" > -->
+                        <div class="form-group">
+                            <select name="weekDay_id" id="weekDay_id" class="form-control input-lg" >
+                                <option value=""> Select Day</option>
+                                @foreach($weekDay_list as $weekDay)
+                                    <option value="{{$weekDay->id}}">{{$weekDay->week_day}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+                              
+                    <td>
+                      <input type="time" name="time" class="form-control" id="time" placeholder="time" >
+                    </td>
 
-            @foreach($schedules as $schedule)
-            <tbody>
-                <th scope="row">{{$schedule->id}}</th>
-                <td> {{$schedule->weekDay['week_day']}} </td>
-                <td> {{$schedule->para['time_from']}} </td>
-                <td> {{$schedule->para['to_time']}} </td>
-                <td> {{$schedule->subject['name']}} </td>
-                <td> <a href="/schedule/groups/{group}">{{$schedule->group['name']}} </a></td>
-                <td> {{$schedule->room['name']}} </td>
-                <td> {{$schedule->teacher['first_name']}}  {{$schedule->teacher['last_name']}} </a></td>
-            </tbody>
-            @endforeach
-    </table>
-        </div>
-        
+                    <td>    
+                        <div class="form-group">
+                            <select name="subject_id" id="subject_id" class="form-control input-lg" data-dependent="teacher_id" >
+                                <option value=""> Select subject</option>
+                                @foreach($subject_list as $subject)
+                                    <option value="{{$subject->id}}">{{$subject->name}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td> 
 
+                    <td>
+                        <div class="form-group">
+                            <select name="group_id" id="group_id" class="form-control input-lg" >
+                                <option value=""> Select Group</option>
+                                @foreach($group_list as $group)
+                                    <option value="{{$group->id}}">{{$group->name}} </option>
+                                @endforeach
+                            </select>
+                        </div>                    
+                    </td>
+                            
+                    <td>
+                        <div class="form-group">
+                            <select name="room_id" id="room_id" class="form-control input-lg" >
+                                <option value=""> Select Room</option>
+                                @foreach($room_list as $room)
+                                    <option value="{{$room->id}}">{{$room->name}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+
+                    <td>
+                    <div class="form-group">
+                        <select name="teacher_id" id="teacher_id" class="form-control input-lg dynamic" >
+                            <option value=""> Select Teacher</option>
+                        </select>
+                    </div>
+                    </td>       
+                    <tr>
+                        <button type="submit" class="btn btn-primary  active float-right"> SEARCH </button>
+                    </tr>
+                  </form>
+                </tr>
+                
+                @foreach($schedules as $key => $schedule)
+                <tbody>
+                    <th scope="row">{{$key+1}}</th>
+                    <td> {{$schedule->weekDay['week_day']}} </td>
+                    <td> {{$schedule->para['time_from']}} </td>
+                    <td> {{$schedule->para['to_time']}} </td>
+                    <td> {{$schedule->subject['name']}} </td>
+                    <td> <a href="/schedule/groups/{{ $schedule->group_id }}">{{$schedule->group['name']}} </a></td>
+                    <td> {{$schedule->room['name']}} </td>
+                    <td> {{$schedule->teacher['first_name']}}  {{$schedule->teacher['last_name']}} </a></td>
+                </tbody>
+                @endforeach
+            </table>
+        </div>      
     </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
 </html>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){ 
+  $('#subject_id').change(function(){ 
+    if($(this).val() != '')
+    {
+      var select = $(this).attr("id");
+      var value =$(this).val();
+      var dependent = 'subject_id';
+      var _token = $('input[name="_token"]').val();
+      $.ajax({
+        url:"{{route('dynamicdependent.fetch')}}",
+        method:"POST",
+        data:{select:select, value:value, _token:_token, dependent},
+        success:function(result)
+        {
+          $('#teacher_id').html(result);
+        }
+      })
+    }
+  });
+});
+</script>

@@ -48,9 +48,10 @@ class SubjectController extends Controller
       // @param  \App\Models\Subject  $subject
       // @return \Illuminate\Http\Response
       // 
-    public function edit(Subject $subject)
+    public function edit($id)
     {
-          
+        $subject = Subject::where('id',$id)->first();
+        return view('university.subject.edit')->with('subject', $subject);  
     }
 
     
@@ -60,9 +61,17 @@ class SubjectController extends Controller
       // @param  \App\Models\Subject  $subject
       // @return \Illuminate\Http\Response
      
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($id);
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+
+         $data =$request->all();
+        $subject=Subject::find($id);
+        $subject -> update($data);        
+        return redirect('admin/subjects');
     }
 
     
@@ -71,8 +80,11 @@ class SubjectController extends Controller
       // @param  \App\Models\Subject  $subject
       // @return \Illuminate\Http\Response
       //
-    public function destroy(Subject $subject)
-    {
-        
-    }
+      public function destroy($id)
+      {
+          $subject=Subject::find($id);
+          $subject->delete();
+  
+          return redirect('admin/subjects');
+      }
 }

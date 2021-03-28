@@ -89,7 +89,9 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teacher = Teacher::where('id',$id)->first();
+        $subject_list=DB::table('subjects')->get();
+        return view('university.teacher.edit',['teacher' => $teacher, 'subject_list' => $subject_list]);  
     }
 
     /**
@@ -101,7 +103,19 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($id);
+        $this->validate($request,[
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'subject_id' => 'required'
+
+        ]);
+
+
+         $data =$request->all();
+        $teacher=Teacher::find($id);
+        $teacher -> update($data);        
+        return redirect('admin/teachers');
     }
 
     /**
@@ -112,6 +126,9 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $teacher=Teacher::find($id);
+        $teacher->delete();
+
+        return redirect('admin/teachers');
     }
 }

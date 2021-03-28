@@ -18,7 +18,7 @@
             @foreach($groups as $group)
             <tbody>
                 <th scope="row">{{$group->id}}</th>
-                <td> <a href="#">{{$group->name}} </a></td>
+                <td> <a href="/schedule/groups/{{ $group->id}}">{{$group->name}} </a></td>
                 <td scope="row">{{count($group->student)}}</td>
 
             </tbody>

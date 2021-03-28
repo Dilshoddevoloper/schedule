@@ -17,7 +17,7 @@
             @foreach($rooms as $room)
             <tbody>
                 <th scope="row">{{$room->id}}</th>
-                <td> <a href="#">{{$room->name}} </a></td>
+                <td> {{$room->name}} </td>
             </tbody>
             @endforeach
         @endif

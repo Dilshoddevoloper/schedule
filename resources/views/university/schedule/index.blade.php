@@ -32,7 +32,7 @@
                 <td> {{$schedule->para['time_from']}} </td>
                 <td> {{$schedule->para['to_time']}} </td>
                 <td> {{$schedule->subject['name']}} </td>
-                <td> <a href="#">{{$schedule->group['name']}} </a></td>
+                <td> <a href="/schedule/groups/{{ $schedule->group_id}}">{{$schedule->group['name']}} </a></td>
                 <td> {{$schedule->room['name']}} </td>
                 <td> {{$schedule->teacher['first_name']}}  {{$schedule->teacher['last_name']}} </a></td>
             </tbody>
